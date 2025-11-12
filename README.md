@@ -1,87 +1,115 @@
-# Testing and Debugging MERN Applications
+# MERN Testing & Debugging Starter
 
-This assignment focuses on implementing comprehensive testing strategies for a MERN stack application, including unit testing, integration testing, and end-to-end testing, along with debugging techniques.
+Simple MERN project focused on reliable testing (unit/integration/E2E) and lightweight debugging patterns.
 
-## Assignment Overview
+## Overview
 
-You will:
-1. Set up testing environments for both client and server
-2. Write unit tests for React components and server functions
-3. Implement integration tests for API endpoints
-4. Create end-to-end tests for critical user flows
-5. Apply debugging techniques for common MERN stack issues
+This project provides:
+
+- Server: Express API with basic CRUD for posts.
+- Client: Minimal React component(s) with unit tests.
+- Testing: Jest + React Testing Library (client), Jest + Supertest (server), optional Cypress E2E.
+- Debugging: Express global error handler and a React Error Boundary.
+
+## Tech Stack
+
+- Node.js, Express
+- React 18
+- Jest, React Testing Library, Supertest
+- (Optional) Cypress for E2E
 
 ## Project Structure
 
 ```
-mern-testing/
-├── client/                 # React front-end
-│   ├── src/                # React source code
-│   │   ├── components/     # React components
-│   │   ├── tests/          # Client-side tests
-│   │   │   ├── unit/       # Unit tests
-│   │   │   └── integration/ # Integration tests
-│   │   └── App.jsx         # Main application component
-│   └── cypress/            # End-to-end tests
-├── server/                 # Express.js back-end
-│   ├── src/                # Server source code
-│   │   ├── controllers/    # Route controllers
-│   │   ├── models/         # Mongoose models
-│   │   ├── routes/         # API routes
-│   │   └── middleware/     # Custom middleware
-│   └── tests/              # Server-side tests
-│       ├── unit/           # Unit tests
-│       └── integration/    # Integration tests
-├── jest.config.js          # Jest configuration
-└── package.json            # Project dependencies
+client/
+  src/
+    components/
+      Button.jsx
+      ErrorBoundary.jsx
+    tests/
+      unit/
+        Button.test.jsx
+      __mocks__/
+        fileMock.js
+  cypress/
+    e2e/
+      basic.cy.js
+
+server/
+  src/
+    app.js
+    models/
+      Post.js
+      User.js
+    middleware/
+      errorHandler.js
+    utils/
+      auth.js
+  tests/
+    setup.js
+    integration/
+      posts.test.js
+
+jest.config.js
+babel.config.js
+package.json
 ```
 
-## Getting Started
+## Setup
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Follow the setup instructions in the `Week6-Assignment.md` file
-4. Explore the starter code and existing tests
-5. Complete the tasks outlined in the assignment
+```
+npm run install-all
+```
 
-## Files Included
+If you are low on disk space, consider skipping E2E setup (Cypress) or install it later.
 
-- `Week6-Assignment.md`: Detailed assignment instructions
-- Starter code for a MERN application with basic test setup:
-  - Sample React components with test files
-  - Express routes with test files
-  - Jest and testing library configurations
-  - Example tests for reference
+## Scripts
 
-## Requirements
+- `npm test` — run all tests for client and server.
+- `npm run test:unit` — client unit tests only.
+- `npm run test:integration` — server integration tests only.
+- `npm run test:e2e` — run Cypress (headless). If Cypress isn’t installed, this will no-op.
+- `npm run setup-test-db` — placeholder; server tests use an in-memory mock.
 
-- Node.js (v18 or higher)
-- MongoDB (local installation or Atlas account)
-- npm or yarn
-- Basic understanding of testing concepts
+## Testing
 
-## Testing Tools
+- Client tests use jsdom with React Testing Library.
+- Server tests are designed for Supertest; to keep things simple on low-resource systems, we stub Mongo in tests via lightweight in-memory mocks.
 
-- Jest: JavaScript testing framework
-- React Testing Library: Testing utilities for React
-- Supertest: HTTP assertions for API testing
-- Cypress/Playwright: End-to-end testing framework
-- MongoDB Memory Server: In-memory MongoDB for testing
+## Debugging
 
-## Submission
+- Server: global error handler (`server/src/middleware/errorHandler.js`).
+- Client: `ErrorBoundary.jsx` for catching render-time errors.
+- Add targeted `console.error`/`console.log` while debugging; remove or gate them before shipping.
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+## Latest Test Results
 
-1. Complete all required tests (unit, integration, and end-to-end)
-2. Achieve at least 70% code coverage for unit tests
-3. Document your testing strategy in the README.md
-4. Include screenshots of your test coverage reports
-5. Demonstrate debugging techniques in your code
+```
+PASS   client  client/src/tests/unit/Button.test.jsx (6.412 s)
+  Button Component
+    √ renders with default props (223 ms)
+    √ renders with different variants (267 ms)
+    √ renders with different sizes (81 ms)
+    √ renders in disabled state (17 ms)
+    √ calls onClick handler when clicked (117 ms)
+    √ does not call onClick when disabled (42 ms)
+    √ passes additional props to the button element (18 ms)
+    √ accepts and applies custom className (9 ms)
 
-## Resources
+------------|---------|----------|---------|---------|-------------------
+File        | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------|---------|----------|---------|---------|-------------------
+All files   |   88.88 |    71.42 |     100 |     100 |
+ Button.jsx |   88.88 |    71.42 |     100 |     100 | 16-22
+------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       8 passed, 8 total
+Snapshots:   0 total
+Time:        12.905 s
+Ran all test suites in 2 projects.
+```
 
-- [Jest Documentation](https://jestjs.io/docs/getting-started)
-- [React Testing Library Documentation](https://testing-library.com/docs/react-testing-library/intro/)
-- [Supertest Documentation](https://github.com/visionmedia/supertest)
-- [Cypress Documentation](https://docs.cypress.io/)
-- [MongoDB Testing Best Practices](https://www.mongodb.com/blog/post/mongodb-testing-best-practices) 
+## Notes
+
+- The server integration suite currently depends on lightweight test doubles to avoid MongoDB binary downloads. Swap to `mongodb-memory-server` or a real MongoDB instance if your environment has enough space and you want closer-to-real integration behavior.
+

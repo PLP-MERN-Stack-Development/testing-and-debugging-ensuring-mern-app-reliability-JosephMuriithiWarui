@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1762942807496" clover="3.2.0">
+  <project timestamp="1762942807496" name="All files">
+    <metrics statements="7" coveredstatements="7" conditionals="14" coveredconditionals="10" methods="2" coveredmethods="2" elements="23" coveredelements="19" complexity="0" loc="7" ncloc="7" packages="1" files="1" classes="1"/>
+    <file name="Button.jsx" path="C:\Users\warui\OneDrive\Desktop\PLP\MERN-STACK\week6 assignment\testing-and-debugging-ensuring-mern-app-reliability-JosephMuriithiWarui\client\src\components\Button.jsx">
+      <metrics statements="7" coveredstatements="7" conditionals="14" coveredconditionals="10" methods="2" coveredmethods="2"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="9" count="1" type="stmt"/>
+      <line num="16" count="12" type="cond" truecount="4" falsecount="2"/>
+      <line num="20" count="12" type="stmt"/>
+      <line num="21" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="22" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="25" count="12" type="stmt"/>
+    </file>
+  </project>
+</coverage>
